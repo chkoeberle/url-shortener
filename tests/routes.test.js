@@ -18,9 +18,9 @@ describe('URL shorter api', () => {
         server.close();
     });
 
-    describe('api GET', () => {
+    describe('api POST', () => {
 
-        it('should have an http endpoint ', async () => {
+        it('should take URL from body and returning slug', async () => {
             const urlEntry = new URL(targetUrl, slug);
             const stub = sinon.stub(urlShortenerService, 'createSlug').returns(urlEntry)
             chai.request(server)
