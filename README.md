@@ -1,5 +1,9 @@
 # URL Shortener
 
+## API 
+find api definition in swagger.yaml. You can review API definition via swagger editor.
+[Swagger editor](https://editor.swagger.io).
+
 ## run project
 
 ```
