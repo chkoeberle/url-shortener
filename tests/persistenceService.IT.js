@@ -65,4 +65,18 @@ describe('Persistence service ', () => {
         res.slug.should.equal(slug);
     });
 
+    it('should get url statistics from DB', async()=>{
+        const stats = await db.getUrlStatistics(targetUrl);
+        stats.url.url.should.equal(targetUrl);
+        stats.url.slug.should.equal(slug);
+        stats.count.should.equal(1);
+    });
+
+    it('should get slug statistics from DB', async()=>{
+        const stats = await db.getSlugStatistics(slug);
+        stats.url.url.should.equal(targetUrl);
+        stats.url.slug.should.equal(slug);
+        stats.count.should.equal(1);
+    });
+
 });
