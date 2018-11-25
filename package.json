@@ -1,0 +1,32 @@
+{
+  "name": "url-shortener",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "mocha test/**/*.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chkoeberle/url-shortener.git"
+  },
+  "author": "chkoeberle",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chkoeberle/url-shortener/issues"
+  },
+  "homepage": "https://github.com/chkoeberle/url-shortener#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "pg": "^7.6.1",
+    "short-uuid": "^3.0.1"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.0",
+    "mocha": "^5.2.0",
+    "sinon": "^7.1.1"
+  }
+}
