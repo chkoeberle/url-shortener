@@ -1,7 +1,10 @@
 const pool = require('./dbPools').pool;
+const URL = require('../model/url');
 
 const INSERT_URL_STMT = 'INSERT INTO testo.url (u_slug, u_url) VALUES($1, $2)';
 const INSERT_URL_VIEW_STMT = 'INSERT INTO testo.url_views (uv_slug) VALUES($1)';
+const SELECT_URL_BY_SLUG_STMT = 'SELECT u_url FROM testo.url WHERE u_slug = $1';
+
 
 const createUrlEntry = async (url) => {
     try {
@@ -23,8 +26,15 @@ const createUrlViewEntry = async (slug) => {
     }
 };
 
+const getUrl = async (slug) => {
+    const result = await pool.query(SELECT_URL_BY_SLUG_STMT, [slug]);
+    const row = result.rows.pop();
+    return row ? new URL(row.u_url, slug) : undefined;
+};
+
 
 module.exports = {
     createUrlEntry,
-    createUrlViewEntry
+    createUrlViewEntry,
+    getUrl
 };

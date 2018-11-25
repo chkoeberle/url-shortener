@@ -44,4 +44,10 @@ describe('Persistence service ', () => {
         pool.query.restore();
     });
 
+    it('should get url by slug from DB', async()=>{
+        const url = await db.getUrl(slug);
+        url.url.should.equal(targetUrl);
+        url.slug.should.equal(slug);
+    });
+
 });
