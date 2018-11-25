@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "test": "mocha tests/**/*.test.js"
+    "test": "mocha tests/**/*.test.js",
+    "integration-test":"mocha tests/**/*.IT.js"
   },
   "repository": {
     "type": "git",
