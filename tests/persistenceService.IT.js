@@ -6,7 +6,7 @@ const sinon = require('sinon');
 chai.should();
 
 const slug = 'ABC';
-const targetUrl = `https://www.domain.tdl/foo`;
+const targetUrl = 'https://www.domain.tdl/foo';
 
 describe('Persistence service ', () => {
 
