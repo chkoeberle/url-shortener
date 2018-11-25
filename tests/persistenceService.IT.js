@@ -2,6 +2,7 @@ const chai = require('chai');
 const pool = require('../service/dbPools').pool;
 const db = require('../service/persistenceService');
 const URL = require('../model/url');
+const sinon = require('sinon');
 chai.should();
 
 const slug = 'ABC';
@@ -28,6 +29,19 @@ describe('Persistence service ', () => {
         const url = new URL(targetUrl, slug);
         const res = await db.createUrlEntry(url);
         res.should.be.false;
+    });
+
+    it('should put new url view slug to DB', async()=>{
+        const res = await db.createUrlViewEntry("ABC");
+        res.should.be.true;
+    });
+
+    it('should return false if db error occurs while put new url view to DB', async()=>{
+        const stub = sinon.stub(pool, 'query').throws();
+        const res = await db.createUrlViewEntry(slug);
+        stub.called.should.be.true;
+        res.should.be.false;
+        pool.query.restore();
     });
 
 });
