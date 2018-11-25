@@ -1,0 +1,117 @@
+swagger: '2.0'
+info:
+  description: 'Testo URL shortener'
+  version: '1.0.0'
+  title: 'Testo URL Shortener API'
+schemes:
+- 'https'
+paths:
+  /{slug}:
+    get:
+      parameters:
+        - name: 'slug'
+          in: 'path'
+          description: 'The slug for which a redirect to target URL is requested.'
+          required: true
+          type: 'string'
+      responses:
+        301:
+          description: 'Redirects to a target URL for given slug.'
+        404:
+           description: 'Slug not found'
+  /api/url/:
+    post:
+      description: 'Get a URL and returns a JSON that contains generated slug.'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'url'
+          in: 'body'
+          description: 'The URl which has to be shorten.'
+          required: true
+          schema:
+            $ref: '#/definitions/TargetUrl'
+      responses:
+        200:
+          description: 'successful operation'
+          schema:
+            $ref: '#/definitions/URL'
+      security:
+        - shortener_auth:
+          - 'url_shortener.write'
+  /api/statistics/slug/{slug}:
+      get:
+        produces:
+          - 'application/json'
+        parameters:
+          - name: 'slug'
+            in: 'path'
+            description: 'The slug for which statistic is requested.'
+            required: true
+            type: 'string'
+        responses:
+          200:
+            description: 'JSON with statistics for given slug.'
+            schema:
+              $ref: '#/definitions/Statistics'
+          404:
+            description: 'Slug not found'
+        security:
+          - shortener_auth:
+            - 'url_shortener.read'
+  /api/statistics/url/{url}:
+    get:
+      produces:
+        - 'application/json'
+      parameters:
+        - name: 'url'
+          in: 'path'
+          description: 'The URL for which statistic is requested. URL must be encoded.'
+          required: true
+          type: 'string'
+      responses:
+        200:
+          description: 'JSON with statistics for given URL.'
+          schema:
+            $ref: '#/definitions/Statistics'
+        404:
+          description: 'URL not found'
+      security:
+        - shortener_auth:
+          - 'url_shortener.read'
+securityDefinitions:
+  shortener_auth:
+    type: 'oauth2'
+    authorizationUrl: 'https://auth.testo.de'
+    flow: 'implicit'
+    scopes:
+      url_shortener.write: 'modify entries'
+      url_shortener.read: 'read entries'
+  api_key:
+    type: 'apiKey'
+    name: 'api_key'
+    in: 'header'
+definitions:
+  TargetUrl:
+    type: 'object'
+    properties:
+      url:
+        type: 'string'
+        example: 'https://www.domain.tdl/foo?bar=baz'
+  URL:
+    type: 'object'
+    properties:
+      url:
+        type: 'string'
+        example: 'https://www.domain.tdl/foo?bar=baz'
+      slug:
+        type: 'string'
+        example: 'A3fshBCG7'
+  Statistics:
+    type: 'object'
+    properties:
+      url:
+        $ref: '#/definitions/URL'
+      count:
+        type: 'integer'
+
