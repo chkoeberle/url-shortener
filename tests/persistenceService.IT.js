@@ -60,4 +60,9 @@ describe('Persistence service ', () => {
         res.should.be.true;
     });
 
+    it('should get slug for given URL', async()=>{
+        const res = await db.getSlugForUrl(targetUrl);
+        res.slug.should.equal(slug);
+    });
+
 });
