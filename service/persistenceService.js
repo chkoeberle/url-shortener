@@ -32,9 +32,14 @@ const getUrl = async (slug) => {
     return row ? new URL(row.u_url, slug) : undefined;
 };
 
+const slugExist = async (slug) => {
+    return getUrl(slug) !== undefined;
+};
+
 
 module.exports = {
     createUrlEntry,
     createUrlViewEntry,
-    getUrl
+    getUrl,
+    slugExist
 };

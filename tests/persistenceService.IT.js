@@ -50,4 +50,14 @@ describe('Persistence service ', () => {
         url.slug.should.equal(slug);
     });
 
+    it('should return true if url entry for given slug exist in db DB', async()=>{
+        const res = await db.slugExist(slug);
+        res.should.be.true;
+    });
+
+    it('should return false if url entry for given slug not exist in db DB', async()=>{
+        const res = await db.slugExist(slug);
+        res.should.be.true;
+    });
+
 });
