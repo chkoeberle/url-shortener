@@ -18,6 +18,7 @@ describe('URL shorter api', () => {
         server.close();
     });
 
+
     describe('api POST', () => {
 
         it('should take URL from body and returning slug', async () => {
@@ -32,6 +33,7 @@ describe('URL shorter api', () => {
                     res.body.url.should.equal(targetUrl);
                     res.body.slug.should.equal(slug);
                     stub.called.should.be.true;
+                    urlShortenerService.createSlug.restore();
                 })
         });
     });
