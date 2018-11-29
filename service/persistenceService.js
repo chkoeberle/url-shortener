@@ -38,7 +38,7 @@ const getUrl = async (slug) => {
 };
 
 const slugExist = async (slug) => {
-    return getUrl(slug) !== undefined;
+    return  await getUrl(slug) !== undefined;
 };
 
 const getSlugForUrl = async (url) => {
