@@ -8,7 +8,7 @@ const createSlug = async (url) => {
     if(slug){
         return new URL(url, slug);
     }else{
-        slug  = generateSlug(url);
+        slug  = await generateSlug(url);
         const result = new URL(url, slug);
         await db.createUrlEntry(result);
         return result;
